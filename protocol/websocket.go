@@ -114,7 +114,7 @@ func (proto *WSProto) SNegotiate() error {
 	re := regexp.MustCompile(`Sec-WebSocket-Key: (.*)`)
 	tkey := re.FindStringSubmatch(strings.ReplaceAll(result.String(), "\r\n", "\n"))
 	if len(tkey) < 2 {
-		return errors.New("Sec-Websocket-Key is not in header")
+		return errors.New("Sec-WebSocket-Key is not in header")
 	}
 
 	key := tkey[1]

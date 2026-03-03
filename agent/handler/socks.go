@@ -589,7 +589,7 @@ func proxyC2SUDP(mgr *manager.Manager, listener *net.UDPConn, seq uint64) {
 	defer func() {
 		// Just avoid panic
 		if r := recover(); r != nil {
-			go func() { //continue to read channel,avoid some remaining data sended by admin blocking our dispatcher
+			go func() { //continue to read channel,avoid some remaining data sent by admin blocking our dispatcher
 				for {
 					_, ok := <-dataChan
 					if !ok {

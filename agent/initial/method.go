@@ -83,7 +83,7 @@ func NormalActive(userOptions *Options, proxy share.Proxy) (net.Conn, string) {
 			var tlsConfig *tls.Config
 			tlsConfig, err = transport.NewClientTLSConfig(userOptions.Domain)
 			if err != nil {
-				log.Printf("[*] Error occured: %s", err.Error())
+				log.Printf("[*] Error occurred: %s", err.Error())
 				conn.Close()
 				continue
 			}
@@ -118,14 +118,14 @@ func NormalActive(userOptions *Options, proxy share.Proxy) (net.Conn, string) {
 
 		if fHeader.MessageType == protocol.HI {
 			mmess := fMessage.(*protocol.HIMess)
-			if mmess.Greeting == "Keep slient" && mmess.IsAdmin == 1 {
+			if mmess.Greeting == "Keep silent" && mmess.IsAdmin == 1 {
 				uuid := achieveUUID(conn, userOptions.Secret)
 				return conn, uuid
 			}
 		}
 
 		conn.Close()
-		log.Fatal("[*] Admin seems illegal!\n")
+		log.Fatal("[*] Admin looks invalid!\n")
 	}
 }
 
@@ -147,8 +147,8 @@ func NormalPassive(userOptions *Options) (net.Conn, string) {
 	var sMessage, rMessage protocol.Message
 
 	hiMess := &protocol.HIMess{
-		GreetingLen: uint16(len("Keep slient")),
-		Greeting:    "Keep slient",
+		GreetingLen: uint16(len("Keep silent")),
+		Greeting:    "Keep silent",
 		UUIDLen:     uint16(len(protocol.TEMP_UUID)),
 		UUID:        protocol.TEMP_UUID,
 		IsAdmin:     0,
@@ -174,7 +174,7 @@ func NormalPassive(userOptions *Options) (net.Conn, string) {
 			var tlsConfig *tls.Config
 			tlsConfig, err = transport.NewServerTLSConfig()
 			if err != nil {
-				log.Printf("[*] Error occured: %s", err.Error())
+				log.Printf("[*] Error occurred: %s", err.Error())
 				conn.Close()
 				continue
 			}
@@ -214,7 +214,7 @@ func NormalPassive(userOptions *Options) (net.Conn, string) {
 		}
 
 		conn.Close()
-		log.Println("[*] Incoming connection seems illegal!")
+		log.Println("[*] Incoming connection looks invalid.")
 	}
 }
 
@@ -296,8 +296,8 @@ func SoReusePassive(userOptions *Options) (net.Conn, string) {
 	var sMessage, rMessage protocol.Message
 
 	hiMess := &protocol.HIMess{
-		GreetingLen: uint16(len("Keep slient")),
-		Greeting:    "Keep slient",
+		GreetingLen: uint16(len("Keep silent")),
+		Greeting:    "Keep silent",
 		UUIDLen:     uint16(len(protocol.TEMP_UUID)),
 		UUID:        protocol.TEMP_UUID,
 		IsAdmin:     0,
@@ -323,7 +323,7 @@ func SoReusePassive(userOptions *Options) (net.Conn, string) {
 			var tlsConfig *tls.Config
 			tlsConfig, err = transport.NewServerTLSConfig()
 			if err != nil {
-				log.Printf("[*] Error occured: %s", err.Error())
+				log.Printf("[*] Error occurred: %s", err.Error())
 				conn.Close()
 				continue
 			}
@@ -382,7 +382,7 @@ func SoReusePassive(userOptions *Options) (net.Conn, string) {
 		}
 
 		conn.Close()
-		log.Println("[*] Incoming connection seems illegal!")
+		log.Println("[*] Incoming connection looks invalid.")
 	}
 }
 

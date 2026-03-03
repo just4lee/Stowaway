@@ -17,7 +17,7 @@ const (
 
 type backwardManager struct {
 	backwardSeq      uint64
-	backwardSeqMap   map[uint64]*bwSeqRelationship   // map[seq](port+uuid) just for accelerate the speed of searching detail only by seq
+	backwardSeqMap   map[uint64]*bwSeqRelationship   // map[seq](port+uuid) just to speed up searching detail only by seq
 	backwardMap      map[string]map[string]*backward // map[uuid][rport]backward status
 	backwardReadyDel map[int]string
 
@@ -116,7 +116,7 @@ func (manager *backwardManager) run() {
 	}
 }
 
-// register a brand new backforward
+// register a new backward
 // 2022.7.19 Fix nil pointer bug,thx to @zyylhn
 func (manager *backwardManager) newBackward(task *BackwardTask) {
 	if _, ok := manager.backwardMap[task.UUID]; !ok {

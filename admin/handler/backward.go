@@ -49,7 +49,7 @@ func (backward *Backward) LetBackward(mgr *manager.Manager, route string, uuid s
 		err := fmt.Errorf("fail to map remote port %s to local port %s,node cannot listen on port %s", backward.RPort, backward.LPort, backward.RPort)
 		return err
 	}
-	// node can listen,it means no backward service is running on the assigned port,so just register a brand new backward
+	// If the node can listen, it means no backward service is running on the assigned port, so register a new backward service.
 	backwardTask := &manager.BackwardTask{
 		Mode:  manager.B_NEWBACKWARD,
 		LPort: backward.LPort,
@@ -210,7 +210,7 @@ func GetBackwardInfo(mgr *manager.Manager, uuid string) (int, bool) {
 		fmt.Print("\r\n[0] All")
 		for _, info := range result.BackwardInfo {
 			fmt.Printf(
-				"\r\n[%d] Remote Port: %s , Local Port: %s , Active Connnections: %d",
+				"\r\n[%d] Remote Port: %s , Local Port: %s , Active Connections: %d",
 				info.Seq,
 				info.RPort,
 				info.LPort,

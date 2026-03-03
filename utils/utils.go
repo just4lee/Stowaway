@@ -206,10 +206,10 @@ func ParseFileCommand(commands []string) (string, string, error) {
 			if len(final) == 2 {
 				return final[0], final[1], nil
 			} else {
-				return "", "", errors.New("wrong format")
+				return "", "", errors.New("invalid format")
 			}
 		} else {
-			return "", "", errors.New("wrong format")
+			return "", "", errors.New("invalid format")
 		}
 	}
 

@@ -1,7 +1,7 @@
 package protocol
 
 // http.go is deprecated
-// Just keep this for sample
+// Kept as a sample
 
 import (
 	"fmt"

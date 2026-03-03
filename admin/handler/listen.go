@@ -64,7 +64,7 @@ func (listen *Listen) LetListen(mgr *manager.Manager, route, uuid string) error 
 		if listen.Method == NORMAL {
 			printer.Success("\r\n[*] Node cannot listen on %s", listen.Addr)
 		} else {
-			printer.Success("\r\n[*] Node cannot reusing port,plz check if node is initialed via resusing!")
+			printer.Success("\r\n[*] Node cannot reuse port, please check if node is initialized via reusing!")
 		}
 	}
 

@@ -37,7 +37,7 @@ func (admin *Admin) Run() {
 	// Init console
 	console := cli.NewConsole()
 	console.Init(admin.topology, admin.mgr)
-	// hanle all message comes from downstream
+	// handle all messages coming from downstream
 	go admin.handleMessFromDownstream(console)
 	// run a dispatcher to dispatch different kinds of message
 	go handler.DispatchListenMess(admin.mgr, admin.topology)
@@ -51,7 +51,7 @@ func (admin *Admin) Run() {
 	go handler.DispatchShellMess(admin.mgr)
 	go handler.DispatchInfoMess(admin.mgr, admin.topology)
 	go DispatchChildrenMess(admin.mgr, admin.topology)
-	// if options.Heartbeat set, send hearbeat packet to agent
+	// if options.Heartbeat is set, send a heartbeat packet to the agent
 	if admin.options.Heartbeat {
 		go handler.LetHeartbeat(admin.topology)
 	}

@@ -146,7 +146,7 @@ func (history *History) search(task *HistoryTask) {
 			command := history.normal.now.Value.(string)
 			history.ResultChan <- command
 		}
-		if history.normal.storeList.Len() == 0 { // avoid blocking the interactive panel if user press arrowup or arrowdown when no history node exists
+		if history.normal.storeList.Len() == 0 { // avoid blocking the interactive panel if the user presses ArrowUp or ArrowDown when no history node exists
 			history.ResultChan <- ""
 		}
 	case SHELL:

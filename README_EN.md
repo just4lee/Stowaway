@@ -7,13 +7,13 @@
 [![GitHub stars](https://img.shields.io/github/stars/ph4ntonn/Stowaway)](https://github.com/ph4ntonn/Stowaway/stargazers)
 [![GitHub license](https://img.shields.io/github/license/ph4ntonn/Stowaway)](https://github.com/ph4ntonn/Stowaway/blob/master/LICENSE)
 
-Stowaway is a Multi-hop proxy tool for security researchers and pentesters
+Stowaway is a multi-hop proxy tool for security researchers and penetration testers.
 
-Users can use this program to proxy external traffic through multiple nodes to the core internal network, breaking through internal network access restrictions, constructing a tree-like node network, and easily realizing management functions.
+Stowaway lets you proxy external traffic through multiple hops into a target internal network, bypassing access restrictions, building a tree-like node topology, and managing it easily.
 
-Thank you everyone for the stars, and also welcome everyone to raise questions && bugs after use :kissing_heart: 
+Thanks for the stars. Issues and bug reports are welcome. :kissing_heart:
 
-**And please be sure to read the usage method and the notes at the end before using**
+**Please be sure to read the usage guide and the notes at the end before using.**
 
 ## Disclaimer:
 
@@ -23,51 +23,51 @@ By using this tool, you acknowledge that you have read, understood, and agreed t
 
 ## Features
 
-- More user-friendly interaction, support command auto-completion/search history
-- Obvious node topology
-- Clear information display of nodes
-- Active/Passive connection between nodes
-- Support reconnection between nodes
-- Nodes can be connected through socks5/http proxy
-- Nodes can be connected through ssh tunnel
+- User-friendly interaction with command auto-completion and history search
+- Clear node topology
+- Clear node information display
+- Active/passive connections between nodes
+- Reconnection support between nodes
+- Nodes can connect via SOCKS5/HTTP proxies
+- Nodes can connect via SSH tunnels
 - TCP/HTTP/WS can be selected for inter-node traffic
-- Multi-hop socks5 traffic proxy forwarding, support UDP/TCP, IPV4/IPV6
-- Nodes can access arbitrary host via ssh
+- Multi-hop SOCKS5 proxying with UDP/TCP and IPv4/IPv6 support
+- Nodes can access arbitrary hosts via SSH
 - Remote shell
-- Upload/download files
-- Port local/remote mapping
-- Port Reuse
-- Open/Close all the services arbitrarily
-- Authenicate each other between nodes
+- File upload/download
+- Local/remote port mapping
+- Port reuse
+- Start/stop services as needed
+- Mutual authentication between nodes
 - Traffic encryption with TLS/AES-256-GCM
 - Compared with v1.0, the file size is reduced by 25%
-- Multiple platforms support(Linux/Mac/Windows/MIPS/ARM)
+- Multi-platform support (Linux/Mac/Windows/MIPS/ARM)
 
 ## Build and Demo
 
 - Use `make` to directly compile programs for multiple platforms, or refer to the Makefile for compiling specific programs.
-- If you prefer not to compile, you can directly use the programs available here [release](https://github.com/ph4ntonn/Stowaway/releases) 
-- Demo video: [Youtube](https://www.youtube.com/watch?v=Lh5Q0RPWKMU&list=PLkbGxnHFIhA_g5XZtKzN4u-JXRq41L2g-)
+- If you prefer not to compile, you can directly use the programs available on the [release](https://github.com/ph4ntonn/Stowaway/releases) page
+- Demo video: [YouTube](https://www.youtube.com/watch?v=Lh5Q0RPWKMU&list=PLkbGxnHFIhA_g5XZtKzN4u-JXRq41L2g-)
 
 ## Usage
 
-### Character
+### Roles
 
-Stowaway has two kinds of characters: 
-- `admin`  The master used by the penetration tester
-- `agent`  The slave deployed by the penetration tester
+Stowaway has two roles:
+- `admin`  The controller used by the operator
+- `agent`  The node deployed on a target host
 
 ### Noun definition
 
-- Node: This refers to admin || agent
-- Active mode: This refers to the situation where the node being currently operated actively establishes a connection to another node
-- Passive mode: This refers to the situation where the node currently being operated is listening on a specific port, waiting for another node to connect.
-- Upstream: This refers to the traffic between the node currently being operated and its parent node
-- Downstream: This refers to the traffic between the node currently being operated and **all ** its child nodes
+- Node: Either `admin` or `agent`
+- Active mode: The current node actively connects to another node
+- Passive mode: The current node listens on a specific port and waits for another node to connect
+- Upstream: Traffic between the current node and its parent node
+- Downstream: Traffic between the current node and **all** of its child nodes
 
 ### Quick start
 
-The following command can quickly start the simplest stowaway instance
+The following commands quickly start the simplest Stowaway setup:
 
 - admin: `./stowaway_admin -l 9999`
 - agent: `./stowaway_agent -c <stowaway_admin's IP>:9999`
@@ -79,7 +79,7 @@ The following command can quickly start the simplest stowaway instance
 ```
 Parameter:
 -l Listening address in passive mode [ip]:<port>
--s Node communication encryption key, all nodes (admin&&agent) must be consistent
+-s Shared secret for node communication; must be the same on all nodes (admin and agent)
 -c Target node address under active mode
 --socks5-proxy SOCKS5 proxy server address
 --socks5-proxyu SOCKS5 proxy server username
@@ -88,7 +88,7 @@ Parameter:
 --down Downstream protocol type, default is raw TCP traffic, optional HTTP/WS
 --tls-enable Enable TLS for node communication, after enabling TLS, AES encryption will be disabled
 --domain Specify the TLS SNI/WebSocket domain name. If it is empty, it defaults to the target node address
---heartbeat Enable heartbeat 
+--heartbeat Enable heartbeat packets
 ```
 
 - agent
@@ -104,12 +104,12 @@ Parameter:
 --http-proxy HTTP proxy server address
 --reconnect Reconnect time interval
 --rehost The IP address to be reused
---report The Port number to be reused
+--report The port number to be reused
 --up Upstream protocol type, default is raw TCP traffic, optional HTTP/WS
 --down Downstream protocol type, default is raw TCP traffic, optional HTTP/WS
---cs Platform's console encoding type,default is utf-8，optional gbk
+--cs Console encoding (default: utf-8; optional: gbk)
 --tls-enable Enable TLS for node communication, after enabling TLS, AES encryption will be disabled
---domain Specify the TLS SNI/Websocket domain name. If it is empty, it defaults to the target node address.
+--domain Specify the TLS SNI/WebSocket domain name. If it is empty, it defaults to the target node address.
 ```
 
 ### Parameter usage
@@ -150,9 +150,9 @@ These four parameters can be used on admin&&agent , under active mode
 
 `--socks5-proxy` represents the address of the socks5 proxy server, `--socks5-proxyu` and `--socks5-proxyp` are optional
 
-`--http-proxy` represents the address of the http-proxy server, the usage is as same as socks5
+`--http-proxy` represents the address of the http-proxy server, the usage is the same as socks5
 
-No username and password：
+Without username and password:
 
 - admin:  `./stowaway_admin -c 127.0.0.1:9999 --socks5-proxy xxx.xxx.xxx.xxx`
 
@@ -166,11 +166,11 @@ Require username and password:
 
 #### --up/--down
 
-These two parameter can be used on admin&&agent, under active && passive mode
+These two parameters can be used on admin&&agent, under active && passive mode
 
 However, note that there is no `--up` parameter on the admin
 
-These two parameters are optional. If left empty, it signifies that the upstream/downstream traffic will be in the form of raw TCP traffic
+These two parameters are optional. If left empty, upstream/downstream traffic will use raw TCP.
 
 If you wish for the upstream/downstream traffic to be HTTP/WS traffic, simply set these two parameters to `http` or `ws`
 
@@ -178,9 +178,9 @@ If you wish for the upstream/downstream traffic to be HTTP/WS traffic, simply se
 
 - agent:  `./stowaway_agent -c 127.0.0.1:9999 --up ws`  or `./stowaway_agent -c 127.0.0.1:9999 --up ws --down ws`
 
-There are two other points you should know:
+Two more notes:
 
-First, once you set the upstream/downstream traffic of a particular node to TCP/HTTP/WS, the downstream/upstream traffic of its connected parent/child node must be set consistently
+First, once you set the upstream/downstream traffic of a node to TCP/HTTP/WS, the downstream/upstream traffic of its parent/child nodes must match.
 
 Like this:
 
@@ -188,75 +188,75 @@ Like this:
 
 - agent:  `./stowaway_agent -l 9999 --up ws`
 
-In the above case, the agent must set `--up` to ws, otherwise it will cause network errors
+In this case, the agent must set `--up` to `ws`, otherwise it will cause network errors.
 
-The rules between admin<-->agent is as same as agent<-->agent
+The rules between admin<-->agent are the same as agent<-->agent.
 
 Assuming agent-1 is waiting for the connection of child nodes on the port `127.0.0.1:10000` and has set `--down ws`
 
-Then, agent-2 must also set `--up` to `ws`, otherwise, it would lead to network errors
+Then, agent-2 must also set `--up` to `ws`, otherwise it will lead to network errors.
 
 - agent-2:  `./stowaway_agent -c 127.0.0.1:10000 --up ws`
 
-Second, since HTTP is a half-duplex protocol, it is not very suitable for the full-duplex communication nature of Stowaway. Therefore, the HTTP protocol here only implements the HTTP message format, not a fully functional HTTP workflow. So you can still use this protocol, but the traffic between Stowaway cannot be forwarded by nginx when choosing to transmit in the HTTP message format. This part of the code and function is retained on the one hand for the use of the HTTP protocol in some special cases, and on the other hand to provide a template for custom traffic, which is convenient for users to use as a reference when customizing other protocols.
+Second, HTTP is half-duplex and is not a great fit for Stowaway's full-duplex communication model. The HTTP option here only implements an HTTP-like message format, not a fully functional HTTP workflow. You can still use it, but traffic in HTTP message format cannot be forwarded by NGINX between Stowaway nodes. This code path is kept both for special cases and as a reference template for implementing custom transports.
 
-If you need to use reverse proxy services such as nginx, please use the Websocket (ws) protocol for communication(it would be better if it can be used with tls).
+If you need a reverse proxy such as NGINX, use the WebSocket (`ws`) transport (ideally with TLS).
 
 #### --reconnect
 
-This parameter can be used on agent, under active mode
+This parameter can be used on the agent, under active mode.
 
-This parameter is optional. If not set, it means that the node will not automatically attempt to reconnect after a network disconnection. If set, it indicates that the node will try to reconnect to the parent node every x seconds (the number of seconds you set)
+This parameter is optional. If not set, the node will not automatically reconnect after a network disconnection. If set, the node will try to reconnect to its parent every x seconds (the number of seconds you set).
 
 - admin:  `./stowaway_admin -l 9999`
 
 - agent:  `./stowaway_agent -c 127.0.0.1:9999 --reconnect 10`
 
-In the scenario described above, it means that if the connection between the agent and the admin is interrupted, the agent will attempt to reconnect to the admin every ten seconds
+In this scenario, if the connection between the agent and the admin is interrupted, the agent will attempt to reconnect to the admin every ten seconds.
 
-The rules between admin<-->agent is as same as agent<-->agent
+The rules between admin<-->agent are the same as agent<-->agent
 
-Additionally, the `--reconnect` parameter can be used in conjunction with `--socks5-proxy`, `--socks5-proxyu`, `--socks5-proxyp`, or `--http-proxy`. In such cases, the agent will attempt to reconnect through the proxy according to the settings specified at startup
+Additionally, `--reconnect` can be used together with `--socks5-proxy`, `--socks5-proxyu`, `--socks5-proxyp`, or `--http-proxy`. In that case, the agent will attempt to reconnect through the proxy using the settings specified at startup.
 
 #### --rehost/--report
 
-These two parameters are quite unique and are used exclusively on the agent side. For more details, please refer to the information below on the port reuse mechanism
+These two parameters are used exclusively on the agent side. For details, see the port reuse section below.
 
 #### --cs
 
-This parameter can be used on agent, under active && passive mode
+This parameter can be used on the agent, under both active and passive mode.
 
-This is primarily aimed at resolving the issue of garbled text with the 'shell' function. When the agent is operated on a platform where the console encoding is set to GBK (such as is commonly the case with Windows) and concurrently, the admin is run on a platform with UTF-8 console encoding, it is crucial to set this parameter to `gbk`
+This is mainly to fix garbled output in the `shell` feature. If the agent runs on a system whose console encoding is GBK (commonly Windows) while the admin runs with UTF-8 console encoding, you should set this parameter to `gbk`.
 
 - Windows: `./stowaway_agent -c 127.0.0.1:9999 -s 123 --cs gbk`
 
 #### --tls-enable
 
-These two parameter can be used on admin&&agent, under active && passive mode
+This parameter can be used on both admin and agent, under both active and passive mode.
 
 By setting this option, traffic between nodes can be encrypted with TLS
 
 - admin: `./stowaway_admin -l 10000 --tls-enable -s 123`
 - agent: `./stowaway_agent -c localhost:10000 --tls-enable -s 123`
 
-Please note that when this parameter is enabled, AES encryption will be disabled by default. The `-s` parameter will then be used solely for mutual verification between nodes & port reuse functionality
+Please note that when this parameter is enabled, AES encryption will be disabled by default. The `-s` parameter will then be used only for mutual authentication between nodes and for port reuse.
 
 Additionally, when this parameter is enabled, **ensure that every node in the network (including the admin) has this parameter enabled**
 
 #### --domain
 
-These two parameter can be used on admin&&agent, under active mode
+This parameter can be used on both admin and agent, under active mode.
 
-By setting this option, you can specify the SNI option for TLS negotiation or WebSocket target host for the current node
+This option lets you specify the TLS SNI name or the WebSocket host/domain name for the current node.
 
 - admin: `./stowaway_admin -l 10000 --tls-enable -s 123`
 - agent: `./stowaway_agent -c xxx.xxx.xxx.xxx:10000 --tls-enable -s 123 --domain xxx.com`
 
 #### --heartbeat
 
-This parameter can be used on admin, under active && passive mode
+This parameter can be used on the admin, under both active and passive mode.
 
-By setting this option, it allows the admin to continuously send heartbeat packets to the first node, thus maintaining a persistent connection even in the presence of a reverse proxy in between.
+When enabled, the admin continuously sends heartbeat packets to the first node, keeping the connection alive even when a reverse proxy sits in between.
 
 Assuming there are reverse proxy devices similar to NGINX between the admin and agent, proxying port 8080 to port 8000, an example is as follows:
 - admin: `./stowaway_admin -l 8000 --tls-enable -s 123 --down ws --heartbeat`
@@ -264,10 +264,10 @@ Assuming there are reverse proxy devices similar to NGINX between the admin and 
 
 ## Port reuse
 
-Stowaway currently supports port reuse functionality based on the SO_REUSEPORT and SO_REUSEADDR features, as well as port reuse functionality based on IPTABLES
+Stowaway currently supports port reuse based on SO_REUSEPORT/SO_REUSEADDR, as well as port reuse based on iptables.
 
-- In Linux environment, stowaway can reuse most ports
-- In Windows environment, it cannot reuse service port like IIS/RDP, but can reuse Mysql/Apache and so on
+- On Linux, Stowaway can reuse most ports.
+- On Windows, it cannot reuse some service ports such as IIS/RDP, but can reuse MySQL/Apache ports and more.
 
 ### How To?
 
@@ -275,15 +275,15 @@ Stowaway currently supports port reuse functionality based on the SO_REUSEPORT a
 
   Assuming that the agent uses the port reuse mechanism to reuse port 80
 
-  In order to do this, the agent must set the `--rehost`&&`--report`&&`-s` parameter at startup
+  To do this, the agent must set `--rehost`&&`--report`&&`-s` at startup.
 
   - `--rehost` This represents the desired IP address for reuse, which cannot be `0.0.0.0` and generally should be the external address of the network card
 
   - `--report` This represents the desired port for reuse
 
-  - `-s` This represents communication key
+  - `-s` This represents the communication key (shared secret)
 
-  **This mode mainly supports windows and mac, linux is also possible, but there are more restrictions**
+  **This mode mainly targets Windows and macOS. Linux may also work, but with more restrictions.**
 
   - admin：`./stowaway_admin -c 192.168.0.105:80 -s 123`
   - agent： `./stowaway_agent  --report 80 --rehost 192.168.0.105 -s 123`
@@ -292,47 +292,47 @@ Stowaway currently supports port reuse functionality based on the SO_REUSEPORT a
 
   Assuming that the agent uses the port reuse mechanism to reuse port 22
 
-  In order to do this, the agent must set the `-l`&&`--report`&&`-s` parameter at startup
+  To do this, the agent must set `-l`&&`--report`&&`-s` at startup.
 
   - `-l` This represents the port that cannot be accessed normally, meaning the port you actually want the agent to listen on and accept connections
 
   - `--report` This represents the desired port for reuse
 
-  - `-s` This represents communication key
+  - `-s` This represents the communication key
 
-  **This method only support linux, agent will manipulate IPTABLES automatically,root permission is required**
+  **This method only supports Linux. The agent manipulates iptables automatically, and root privileges are required.**
 
   - agent： `./stowaway_agent --report 22 -l 10000 -s 123`
 
-    After the agent has started, please use the `reuse.py` script located in the `script` directory first
+    After the agent starts, use the `reuse.py` script located in the `script` directory.
 
     Set the value of SECRET (the value of SECRET is the communication key, aka -s option)
 
-    Then execute：`python reuse.py --start --rhost xxx.xxx.xxx.xxx --rport 22`
+    Then run: `python reuse.py --start --rhost xxx.xxx.xxx.xxx --rport 22`
 
     - `--rhost` This represents the address of the agent
 
     - `--rport` This represents the port being reused, which in this example should be 22.
 
-  - At this time, the admin can connect this agent：`./stowaway_admin -c xxx.xxx.xxx.xxx:22 -s 123`
+  - The admin can then connect to this agent: `./stowaway_admin -c xxx.xxx.xxx.xxx:22 -s 123`
 
 ### Notice
 
 - The scenarios mentioned above only enumerate the connection between the admin and the agent. The connection between agents also follows the same principles and has no differences.
 
-- If the agent is terminated using `ctrl-c` or the `kill` command, the program will automatically clean up the iptables rules. However, if it is terminated using `kill -9`, it cannot be automatically cleaned up. Therefore, to prevent the iptables rules from not being cleaned up when the agent exits abnormally, resulting in the inability to access the reused service. So, when you need to shut down "port reusing", you should run: `python reuse.py --stop --rhost xxx.xxx.xxx.xxx --rport xxx`. This will disable the forwarding rules, allowing the original service to be accessed normally.
+- If the agent is terminated using `ctrl-c` or `kill`, the program will automatically clean up the iptables rules. However, if it is terminated using `kill -9`, the rules cannot be cleaned up automatically. To prevent leftover rules from blocking access to the reused service, run: `python reuse.py --stop --rhost xxx.xxx.xxx.xxx --rport xxx`. This disables the forwarding rules so the original service can be accessed normally.
 
 - If using the IPTABLES mode for port reuse, it will forcefully listen on `0.0.0.0`, and cannot be specified using the `-l` parameter.
 
 ## How to build a multi-level network?
 
-From the example above, it can be observed that only the admin and one agent are involved
+From the example above, you can see that only the admin and one agent are involved.
 
-However, constructing a multi-level network is the core functionality of Stowaway
+However, building a multi-level network is the core functionality of Stowaway.
 
 In Stowaway, building a multi-level network requires the use of commands such as `listen`, `connect`, and `sshtunnel` within the admin interface
 
-Here is an example
+Example:
 
 - admin: `./stowaway_admin -l 9999 -s 123` 
 
@@ -340,29 +340,29 @@ At this point, agent-1 has already connected to the admin
 
 - agent-1:  `./stowaway_agent -c 127.0.0.1:9999 -s 123`
 
-And, the user also wishes to connect to agent-2, as follows:
+Suppose you also want to connect to agent-2:
 
 - agent-2:  `./stowaway_agent -l 10000 -s 123`
 
-Then, the user can enter `use 0` -> `connect agent-2's IP:10000` via admin to add agent-2 to the network and become a child node of agent-1
+Then, you can enter `use 0` -> `connect agent-2's IP:10000` in the admin console to add agent-2 to the network as a child node of agent-1.
 
-After that,If the user wishes to connect to another node, agent-3, but cannot access it through agent-1
+Next, if you want to connect another node (agent-3) but cannot reach it from agent-1 directly:
 
-Then, in order to solve this problem, the user can enter `use 0` -> `listen` via admin -> select `1.Normal Passive` -> enter `10001` to have agent-1 listen on port 10001 and await connections from agent-3
+Use `use 0` -> `listen` in the admin console, select `1.Normal Passive`, and enter `10001` so agent-1 listens on port 10001 and waits for agent-3 to connect.
 
-After the admin operation is completed, agent-3 can be started as follows
+After that, start agent-3 as follows:
 
 - agent-3: `./stowaway_agent -c 127.0.0.1:10001 -s 123`
 
 At this point, agent-3 has become another child node of agent-1 and joined the network.
 
-For a detailed explanation of the `listen` and `sshtunnel` commands, please refer to the command analysis below.
+For details on `listen` and `sshtunnel`, see the command reference below.
 
 ## How to reconnect?
 
 Stowaway currently supports various methods of reconnection, summarized briefly as follows:
 
-Firstly, when the parent node goes offline, only one type of node will actively disconnect, namely the nodes that were started in active mode and have not set up reconnection.
+First, when a parent node goes offline, only one type of node will actively disconnect: nodes that were started in active mode and do not have reconnection enabled.
 
 If reconnection is set up, the node will attempt to reconnect at specified time intervals.
 
@@ -371,11 +371,11 @@ Additionally, all nodes started in passive mode will not actively disconnect. In
 ## Some points you should know
 
 1. **If a branch disconnects due to network fluctuations or a middle node going offline, when attempting to reconnect, it is essential to connect to the head node of the missing branch.** For example, after the admin, there is node1. Node1 branches into two: one branch is node1 -> node 2 -> node 3 -> node 4, and the other branch is node1 -> node 5 -> node 6. If node2 goes offline, node3 and node4 will remain active. If the user wishes to reconnect node3 and node4 to the network, there are two options available. Firstly, if node1 can directly access node3, the user can reconnect node3 to the network at any time by using the `connect` or `sshtunnel` commands on node1. It's important to note that even if node1 can also access node4 directly, please do not connect to node4 directly. Instead, connect to the head node of the missing chain (node3->node4), which is node3. This way, both node3 and node4 can be reconnected to the network. Alternatively, if node1 cannot directly access node3 (i.e., it must go through node2), please restart node2 and join it to the network first. Then, on node2, use the `connect` or `sshtunnel` commands to connect to node3, thus reconnecting both node3 and node4 to the network.
-2. **When a node is offline, all `socks`, `backward`, and `forward` services related to this node and its child nodes will be forcibly stopped**
+2. **When a node is offline, all `socks`, `backward`, and `forward` services related to that node and its child nodes will be forcibly stopped.**
 
 ## Command analysis
 
-In the admin console, users can utilize the tab key for command completion and the arrow keys (up, down, left, right) to navigate through command history or move the cursor
+In the admin console, you can use Tab for command completion and the arrow keys (up, down, left, right) to browse command history or move the cursor.
 
 The admin console is divided into two levels. The first level is the main panel, which includes the following commands:
 
@@ -408,7 +408,7 @@ Node[1]
 Node[1]'s children ->
 ```
 
-- `use`: Select an node
+- `use`: Select a node
 
 ```
 (admin) >> use 0
@@ -423,7 +423,7 @@ Node[1]'s children ->
 [*] BYE!
 ```
 
-When user selects an node via `use` command, admin will enter the second level: node panel, it includes the following commands:
+When you select a node with `use`, the admin enters the second level (node panel), which includes the following commands:
 
 - `help`: Display the help information for the node panel
 
@@ -446,7 +446,7 @@ When user selects an node via `use` command, admin will enter the second level: 
   stopforward                                     Shut down forward services
   backward    <rport> <lport>                     Backward remote port(agent) to local port(admin)
   stopbackward                                    Shut down backward services
-  shutdwon                                        Terminate current node
+  shutdown                                        Terminate current node
   back                                            Back to parent panel
   exit                                            Exit Stowaway 
 ```
@@ -459,18 +459,18 @@ Socks status:
       ListenAddr: 0.0.0.0:10000    Username:    Password:
 -------------------------------------------------------------------------------------------
 Forward status:
-      [1] Listening Addr: [::]:20000 , Remote Addr: 192.168.1.1:22 , Active Connnections: 0
-      [2] Listening Addr: [::]:30000 , Remote Addr: 192.168.1.1:22 , Active Connnections: 0
+      [1] Listening Addr: [::]:20000 , Remote Addr: 192.168.1.1:22 , Active Connections: 0
+      [2] Listening Addr: [::]:30000 , Remote Addr: 192.168.1.1:22 , Active Connections: 0
 -------------------------------------------------------------------------------------------
 Backward status:
-      [1] Remote Port: 40000 , Local Port: 50000 , Active Connnections: 0
+      [1] Remote Port: 40000 , Local Port: 50000 , Active Connections: 0
 ```
 
 - `listen`: Instruct the node to listen on a specific port and wait for connection from child node
 
 ```
 (node 0) >> listen
-[*] MENTION! If you choose IPTables Reuse or SOReuse,you MUST CONFIRM that the node was initially started in the corresponding way!
+[*] MENTION! If you choose IPTables Reuse or SOReuse, you MUST CONFIRM that the node was initially started in the corresponding way!
 [*] When you choose IPTables Reuse or SOReuse, the node will use the initial config(when node started) to reuse port!
 [*] Please choose the mode(1.Normal passive / 2.IPTables Reuse / 3.SOReuse): 1
 [*] Please input the [ip:]<port> : 10001
@@ -572,7 +572,7 @@ If you need to specify the interface to listen on, you can modify the above comm
 ```
 (node 0) >> stopsocks
 Socks Info ---> ListenAddr: 0.0.0.0:7777    Username: <null>    Password: <null>
-[*] Do you really want to shutdown socks?(yes/no): yes
+[*] Do you really want to shut down socks?(yes/no): yes
 [*] Closing......
 [*] Socks service has been closed successfully!
 (node 0) >>
@@ -609,7 +609,7 @@ agent-2: ./stowaway_agent -l 10003
 (node 0) >>
 ```
 
-In highly restricted network environments, Stowaway can utilize SSH tunneling to disguise its traffic as SSH traffic, thereby circumventing firewall restrictions
+In highly restricted environments, Stowaway can use SSH tunneling to disguise its traffic as SSH and bypass firewall restrictions.
 
 - `upload`: Upload file to the current node
 
@@ -649,8 +649,8 @@ $
 ```
 (node 0) >> stopforward
 [0] All
-[1] Listening Addr : [::]:9000 , Remote Addr : 127.0.0.1:22 , Active Connnections : 1
-[*] Do you really want to shutdown forward?(yes/no): yes
+[1] Listening Addr : [::]:9000 , Remote Addr : 127.0.0.1:22 , Active Connections : 1
+[*] Do you really want to shut down forward?(yes/no): yes
 [*] Please choose one to close: 1
 [*] Closing......
 [*] Forward service has been closed successfully!
@@ -678,14 +678,14 @@ $
 ```
 (node 0) >> stopbackward
 [0] All
-[1] Remote Port : 9001 , Local Port : 22 , Active Connnections : 1
-[*] Do you really want to shutdown backward?(yes/no): yes
+[1] Remote Port : 9001 , Local Port : 22 , Active Connections : 1
+[*] Do you really want to shut down backward?(yes/no): yes
 [*] Please choose one to close: 1
 [*] Closing......
 [*] Backward service has been closed successfully!
 ```
 
-- `shutdown`: Shutdown the current node 
+- `shutdown`: Take the current node offline
 
 ```
 (node 1) >> shutdown
@@ -710,17 +710,17 @@ $
 
 ## TODO
 
-- [x] Fix the bug that may exists
+- [x] Fix potential bugs
 - [x] Support TLS
 - [ ] Support multi startnode
 
 ### Attention
 
-- This porject is coding just for fun, the logic structure and code structure are not strict enough, please don't be so serious about it
-- Admin node MUST be online if you want to add a new node into the network
+- This project is just for fun. The design and code structure are not strict, so please do not take it too seriously.
+- The admin node MUST be online if you want to add a new node into the network
 - The admin only supports one directly connected agent node, but the agent node has no such restriction
-- If users use the admin on windows, please download [ansicon](https://github.com/adoxa/ansicon/releases) first, or download from [here](), and then enter the folder corresponding to the number of system bits. Execute `ansicon.exe -i`, otherwise garbled characters will appear on the admin
-- This program only supports standard `UDP ASSOCIATE` described in [RFC1928](https://www.ietf.org/rfc/rfc1928.txt). Please check the programs(such as scanners, etc.) you are using, make sure if the packet construction method comply with the standard [RFC1928](https://www.ietf.org/rfc/rfc1928.txt). Besides, the packet loss situation also needs to be handled by yourself.
+- If you run the admin on Windows, download [ansicon](https://github.com/adoxa/ansicon/releases) first (or from [here](https://github.com/ph4ntonn/Stowaway/blob/master/ansicon/ansi189-bin.zip)). Then go to the folder matching your system architecture and run `ansicon.exe -i`; otherwise, garbled characters may appear in the admin console.
+- This program only supports the standard `UDP ASSOCIATE` described in [RFC1928](https://www.ietf.org/rfc/rfc1928.txt). Please check the tools you are using (scanners, etc.) and make sure their packet construction complies with RFC1928. Packet loss handling is also your responsibility.
 
 ## 404Starlink
 

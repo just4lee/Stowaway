@@ -29,7 +29,7 @@ const (
 // IDNum is only for user-friendly,uuid is used internally
 type Topology struct {
 	currentIDNum int
-	nodes        map[int]*node     // we use uuidNum as the map's key,that's the only special excpection
+	nodes        map[int]*node     // we use uuidNum as the map's key,that's the only special exception
 	route        map[string]string // map[uuid]route
 	history      map[string]int
 
@@ -169,7 +169,7 @@ func (topology *Topology) addNode(task *TopoTask) {
 }
 
 func (topology *Topology) calculate() {
-	newRouteInfo := make(map[string]string) // Create brand new routeInfo
+	newRouteInfo := make(map[string]string) // Create a new route map
 
 	for currentIDNum := range topology.nodes {
 		var tempRoute []string
@@ -184,7 +184,7 @@ func (topology *Topology) calculate() {
 		for {
 			if topology.nodes[tempIDNum].parentUUID != protocol.ADMIN_UUID {
 				tempRoute = append(tempRoute, topology.nodes[tempIDNum].uuid)
-				for nextIDNum := range topology.nodes { // Fix bug,thanks to @lz520520
+				for nextIDNum := range topology.nodes { // Bug fix: thanks to @lz520520
 					if topology.nodes[nextIDNum].uuid == topology.nodes[tempIDNum].parentUUID {
 						tempIDNum = nextIDNum
 						break

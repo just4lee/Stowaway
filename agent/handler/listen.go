@@ -52,7 +52,7 @@ func (listen *Listen) start(mgr *manager.Manager, options *initial.Options) {
 	}
 
 	if listen.method == IPTABLES {
-		if options.ReusePort == "" { // means node is not initialed via iptable reuse
+		if options.ReusePort == "" { // means node is not initialized via iptables reuse
 			protocol.ConstructMessage(sUMessage, resHeader, failMess, false)
 			sUMessage.SendMessage()
 			return
@@ -118,7 +118,7 @@ func (listen *Listen) normalListen(mgr *manager.Manager, options *initial.Option
 			var tlsConfig *tls.Config
 			tlsConfig, err = transport.NewServerTLSConfig()
 			if err != nil {
-				log.Printf("[*] Error occured: %s", err.Error())
+				log.Printf("[*] Error occurred: %s", err.Error())
 				conn.Close()
 				continue
 			}
@@ -151,8 +151,8 @@ func (listen *Listen) normalListen(mgr *manager.Manager, options *initial.Option
 				sLMessage := protocol.NewDownMsg(conn, global.G_Component.Secret, protocol.ADMIN_UUID) //fake admin
 
 				hiMess := &protocol.HIMess{
-					GreetingLen: uint16(len("Keep slient")),
-					Greeting:    "Keep slient",
+					GreetingLen: uint16(len("Keep silent")),
+					Greeting:    "Keep silent",
 					UUIDLen:     uint16(len(protocol.ADMIN_UUID)),
 					UUID:        protocol.ADMIN_UUID,
 					IsAdmin:     1,
@@ -298,7 +298,7 @@ func (listen *Listen) iptablesListen(mgr *manager.Manager, options *initial.Opti
 			var tlsConfig *tls.Config
 			tlsConfig, err = transport.NewServerTLSConfig()
 			if err != nil {
-				log.Printf("[*] Error occured: %s", err.Error())
+				log.Printf("[*] Error occurred: %s", err.Error())
 				conn.Close()
 				continue
 			}
@@ -332,8 +332,8 @@ func (listen *Listen) iptablesListen(mgr *manager.Manager, options *initial.Opti
 				sLMessage := protocol.NewDownMsg(conn, global.G_Component.Secret, protocol.ADMIN_UUID) //fake admin
 
 				hiMess := &protocol.HIMess{
-					GreetingLen: uint16(len("Keep slient")),
-					Greeting:    "Keep slient",
+					GreetingLen: uint16(len("Keep silent")),
+					Greeting:    "Keep silent",
 					UUIDLen:     uint16(len(protocol.ADMIN_UUID)),
 					UUID:        protocol.ADMIN_UUID,
 					IsAdmin:     1,
@@ -476,7 +476,7 @@ func (listen *Listen) soReuseListen(mgr *manager.Manager, options *initial.Optio
 			var tlsConfig *tls.Config
 			tlsConfig, err = transport.NewServerTLSConfig()
 			if err != nil {
-				log.Printf("[*] Error occured: %s", err.Error())
+				log.Printf("[*] Error occurred: %s", err.Error())
 				conn.Close()
 				continue
 			}
@@ -528,8 +528,8 @@ func (listen *Listen) soReuseListen(mgr *manager.Manager, options *initial.Optio
 				sLMessage := protocol.NewDownMsg(conn, global.G_Component.Secret, protocol.ADMIN_UUID) //fake admin
 
 				hiMess := &protocol.HIMess{
-					GreetingLen: uint16(len("Keep slient")),
-					Greeting:    "Keep slient",
+					GreetingLen: uint16(len("Keep silent")),
+					Greeting:    "Keep silent",
 					UUIDLen:     uint16(len(protocol.ADMIN_UUID)),
 					UUID:        protocol.ADMIN_UUID,
 					IsAdmin:     1,

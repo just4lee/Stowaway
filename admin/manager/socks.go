@@ -28,7 +28,7 @@ const (
 
 type socksManager struct {
 	socksSeq    uint64
-	socksSeqMap map[uint64]string // map[seq]uuid  just for accelerate the speed of searching detail only by seq
+	socksSeqMap map[uint64]string // map[seq]uuid  just to speed up searching detail only by seq
 	socksMap    map[string]*socks // map[uuid]socks's detail
 
 	SocksMessChan chan interface{}
@@ -245,7 +245,7 @@ func (manager *socksManager) getUDPDataChanWithoutUUID(task *SocksTask) {
 	}
 }
 
-// close TCP include close UDP,cuz UDP's control channel is TCP,if TCP broken,UDP is also forced to be shutted down
+// close TCP include close UDP,cuz UDP's control channel is TCP,if TCP broken,UDP is also forced to be shut down
 func (manager *socksManager) closeTCP(task *SocksTask) {
 	if _, ok := manager.socksSeqMap[task.Seq]; !ok {
 		return

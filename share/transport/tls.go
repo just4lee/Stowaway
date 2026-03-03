@@ -10,7 +10,7 @@ import (
 	"os"
 )
 
-// Not used temporarily
+// Currently unused
 func newCustomTLSKeyPair(certfile, keyfile string) (*tls.Certificate, error) {
 	tlsCert, err := tls.LoadX509KeyPair(certfile, keyfile)
 	if err != nil {
@@ -44,8 +44,8 @@ func newRandomTLSKeyPair() *tls.Certificate {
 	return &tlsCert
 }
 
-// Not used temporarily
-// Only support one ca file to add
+// Currently unused
+// Only one CA file is supported
 func newCertPool(caPath string) (*x509.CertPool, error) {
 	pool := x509.NewCertPool()
 
@@ -62,7 +62,7 @@ func newCertPool(caPath string) (*x509.CertPool, error) {
 func NewServerTLSConfig() (*tls.Config, error) {
 	var base = &tls.Config{}
 
-	// Not used temporarily
+	// Currently unused
 
 	// if certPath == "" || keyPath == "" {
 	// 	// server will generate tls conf by itself
@@ -96,7 +96,7 @@ func NewServerTLSConfig() (*tls.Config, error) {
 func NewClientTLSConfig(serverName string) (*tls.Config, error) {
 	var base = &tls.Config{}
 
-	// Not used temporarily
+	// Currently unused
 
 	// if caPath != "" {
 	// 	pool, err := newCertPool(caPath)

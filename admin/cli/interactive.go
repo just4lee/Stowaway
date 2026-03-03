@@ -72,12 +72,12 @@ func (console *Console) start() {
 
 	fmt.Print(console.status)
 	// Tested on:
-	// Macos Catalina iterm2/original terminal
+	// macOS Catalina iterm2/original terminal
 	// Ubuntu desktop 16.04/18.04
 	// Ubuntu server 16.04
-	// Centos 7
+	// CentOS 7
 	// Win10 x64 Professional
-	// May have problems when the console working on some terminal since I'm using escape sequence.
+	// There may be problems when the console is running on some terminal since I'm using escape sequence.
 	for {
 		event := termbox.PollEvent()
 		if event.Err != nil {
@@ -97,9 +97,9 @@ func (console *Console) start() {
 
 				fmt.Print(leftCommand + rightCommand)
 
-				notSingleNum := (len(rightCommand) - len([]rune(rightCommand))) / 2 // count non-english characters‘ num
+				notSingleNum := (len(rightCommand) - len([]rune(rightCommand))) / 2 // count non-English characters‘ num
 				singleNum := len([]rune(rightCommand)) - notSingleNum               // count English characters
-				// every non-english character need two '\b'(Actually,i don't know why,i just tested a lot and find this stupid solution(on Mac,linux). So if u know,plz tell me,thx :) )
+				// every non-English character needs two '\b'(Actually,i don't know why,i just tested a lot and find this stupid solution(on Mac,linux). So if u know,plz tell me,thx :) )
 				fmt.Print(string(bytes.Repeat([]byte("\b"), notSingleNum*2+singleNum)))
 			} else {
 				notSingleNum := (len(leftCommand) - len([]rune(leftCommand))) / 2
@@ -283,7 +283,7 @@ func (console *Console) start() {
 				// print command
 				fmt.Print(leftCommand + rightCommand)
 				// print \b
-				notSingleNum := (len(rightCommand) - len([]rune(rightCommand))) / 2 // count non-english characters‘ num
+				notSingleNum := (len(rightCommand) - len([]rune(rightCommand))) / 2 // count non-English characters‘ num
 				singleNum := len([]rune(rightCommand)) - notSingleNum
 				fmt.Print(string(bytes.Repeat([]byte("\b"), notSingleNum*2+singleNum)))
 			} else {
@@ -499,7 +499,7 @@ func (console *Console) handleMainPanelCommand() {
 				break
 			}
 
-			console.status = "[*] Do you really want to exit stowaway?(y/n): "
+			console.status = "[*] Do you really want to exit Stowaway? (y/n): "
 			console.ready <- true
 			option := console.pretreatInput()
 
@@ -602,9 +602,9 @@ func (console *Console) handleNodePanelCommand(uuidNum int) {
 
 			listen := handler.NewListen()
 
-			printer.Warning("\r\n[*] BE AWARE! If you choose IPTables Reuse or SOReuse,you MUST CONFIRM that the node you're controlling was started in the corresponding way!")
+			printer.Warning("\r\n[*] BE AWARE! If you choose IPTables Reuse or SOReuse, you MUST CONFIRM that the node you're controlling was started in the corresponding way!")
 			printer.Warning("\r\n[*] When you choose IPTables Reuse or SOReuse, the node will use the initial config(when node started) to reuse port!")
-			console.status = "[*] Please choose the mode(1.Normal passive/2.IPTables Reuse/3.SOReuse): "
+			console.status = "[*] Please choose the mode(1. Normal passive/2. IPTables Reuse/3. SOReuse): "
 			console.ready <- true
 
 			option := console.pretreatInput()
@@ -665,7 +665,7 @@ func (console *Console) handleNodePanelCommand(uuidNum int) {
 
 			ssh := handler.NewSSH(fCommand[1])
 
-			console.status = "[*] Please choose the auth method(1.username/password 2.certificate): "
+			console.status = "[*] Please choose the auth method(1. username/password 2. certificate): "
 			console.ready <- true
 
 			firstChoice := console.pretreatInput()
@@ -729,7 +729,7 @@ func (console *Console) handleNodePanelCommand(uuidNum int) {
 
 			sshTunnel := handler.NewSSHTunnel(fCommand[2], fCommand[1])
 
-			console.status = "[*] Please choose the auth method(1.username/password 2.certificate): "
+			console.status = "[*] Please choose the auth method(1. username/password 2. certificate): "
 			console.ready <- true
 
 			firstChoice := console.pretreatInput()
@@ -816,7 +816,7 @@ func (console *Console) handleNodePanelCommand(uuidNum int) {
 			IsRunning := handler.GetSocksInfo(console.mgr, uuid)
 
 			if IsRunning {
-				console.status = "[*] Do you really want to shutdown socks?(y/n): "
+				console.status = "[*] Do you really want to shut down socks?(y/n): "
 				console.ready <- true
 				option := console.pretreatInput()
 				if option == "y" {
@@ -865,7 +865,7 @@ func (console *Console) handleNodePanelCommand(uuidNum int) {
 			seq, isRunning := handler.GetForwardInfo(console.mgr, uuid)
 
 			if isRunning {
-				console.status = "[*] Do you really want to shutdown forward?(y/n): "
+				console.status = "[*] Do you really want to shut down forward?(y/n): "
 				console.ready <- true
 				option := console.pretreatInput()
 				if option == "y" {
@@ -924,7 +924,7 @@ func (console *Console) handleNodePanelCommand(uuidNum int) {
 			seq, isRunning := handler.GetBackwardInfo(console.mgr, uuid)
 
 			if isRunning {
-				console.status = "[*] Do you really want to shutdown backward?(y/n): "
+				console.status = "[*] Do you really want to shut down backward?(y/n): "
 				console.ready <- true
 				option := console.pretreatInput()
 				if option == "y" {
@@ -1036,7 +1036,7 @@ func (console *Console) handleNodePanelCommand(uuidNum int) {
 				break
 			}
 
-			console.status = "[*] Do you really want to exit stowaway?(y/n): "
+			console.status = "[*] Do you really want to exit Stowaway? (y/n): "
 			console.ready <- true
 			option := console.pretreatInput()
 

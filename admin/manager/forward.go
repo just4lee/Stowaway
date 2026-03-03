@@ -25,7 +25,7 @@ const (
 
 type forwardManager struct {
 	forwardSeq      uint64
-	forwardSeqMap   map[uint64]*fwSeqRelationship  // map[seq](port+uuid) just for accelerate the speed of searching detail only by seq
+	forwardSeqMap   map[uint64]*fwSeqRelationship  // map[seq](port+uuid) just to speed up searching detail only by seq
 	forwardMap      map[string]map[string]*forward // map[uuid]map[port]*forward's detail record forward status
 	forwardReadyDel map[int]string                 // map[user's option]port(no need to initial it in newForwardManager())
 
@@ -180,7 +180,7 @@ func (manager *forwardManager) getDatachanWithoutUUID(task *ForwardTask) {
 	uuid := manager.forwardSeqMap[task.Seq].uuid
 	port := manager.forwardSeqMap[task.Seq].port
 
-	manager.ResultChan <- &forwardResult{ // no need to chek forwardStatusMap[task.Seq] like above,because no more data after fin
+	manager.ResultChan <- &forwardResult{ // no need to check forwardStatusMap[task.Seq] like above,because no more data after fin
 		OK:       true,
 		DataChan: manager.forwardMap[uuid][port].forwardStatusMap[task.Seq].dataChan,
 	}

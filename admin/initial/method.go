@@ -80,7 +80,7 @@ func NormalActive(userOptions *Options, topo *topology.Topology, proxy share.Pro
 			var tlsConfig *tls.Config
 			tlsConfig, err = transport.NewClientTLSConfig(userOptions.Domain)
 			if err != nil {
-				printer.Fail("[*] Error occured: %s", err.Error())
+				printer.Fail("[*] Error occurred: %s", err.Error())
 				conn.Close()
 				continue
 			}
@@ -117,7 +117,7 @@ func NormalActive(userOptions *Options, topo *topology.Topology, proxy share.Pro
 
 		if fHeader.MessageType == protocol.HI {
 			mmess := fMessage.(*protocol.HIMess)
-			if mmess.Greeting == "Keep slient" && mmess.IsAdmin == 0 {
+			if mmess.Greeting == "Keep silent" && mmess.IsAdmin == 0 {
 				if mmess.IsReconnect == 0 {
 					node := topology.NewNode(dispatchUUID(conn, userOptions.Secret), conn.RemoteAddr().String())
 					task := &topology.TopoTask{
@@ -151,7 +151,7 @@ func NormalActive(userOptions *Options, topo *topology.Topology, proxy share.Pro
 		}
 
 		conn.Close()
-		printer.Fail("[*] Target node seems illegal!\n")
+		printer.Fail("[*] Target node looks invalid!\n")
 	}
 }
 
@@ -176,8 +176,8 @@ func NormalPassive(userOptions *Options, topo *topology.Topology) net.Conn {
 
 	// just say hi!
 	hiMess := &protocol.HIMess{
-		GreetingLen: uint16(len("Keep slient")),
-		Greeting:    "Keep slient",
+		GreetingLen: uint16(len("Keep silent")),
+		Greeting:    "Keep silent",
 		UUIDLen:     uint16(len(protocol.ADMIN_UUID)),
 		UUID:        protocol.ADMIN_UUID,
 		IsAdmin:     1,
@@ -203,7 +203,7 @@ func NormalPassive(userOptions *Options, topo *topology.Topology) net.Conn {
 			var tlsConfig *tls.Config
 			tlsConfig, err = transport.NewServerTLSConfig()
 			if err != nil {
-				printer.Fail("[*] Error occured: %s", err.Error())
+				printer.Fail("[*] Error occurred: %s", err.Error())
 				conn.Close()
 				continue
 			}
@@ -273,6 +273,6 @@ func NormalPassive(userOptions *Options, topo *topology.Topology) net.Conn {
 		}
 
 		conn.Close()
-		printer.Fail("[*] Incoming connection seems illegal!")
+		printer.Fail("[*] Incoming connection looks invalid.")
 	}
 }

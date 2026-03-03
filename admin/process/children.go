@@ -71,7 +71,7 @@ func nodeReonline(mgr *manager.Manager, topo *topology.Topology, mess *protocol.
 	topo.TaskChan <- topoTask
 	result := <-topo.ResultChan
 
-	printer.Success("\r\n[*] Node %d is reonline!", result.IDNum)
+	printer.Success("\r\n[*] Node %d is back online!", result.IDNum)
 }
 
 func DispatchChildrenMess(mgr *manager.Manager, topo *topology.Topology) {

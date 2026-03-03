@@ -45,7 +45,7 @@ func (socks *Socks) LetSocks(mgr *manager.Manager, route string, uuid string) er
 		return err
 	}
 
-	// register brand new socks service
+	// register a new SOCKS service
 	mgrTask := &manager.SocksTask{
 		Mode:             manager.S_NEWSOCKS,
 		UUID:             uuid,
@@ -59,7 +59,7 @@ func (socks *Socks) LetSocks(mgr *manager.Manager, route string, uuid string) er
 	mgr.SocksManager.TaskChan <- mgrTask
 	result := <-mgr.SocksManager.ResultChan // wait for "add" done
 	if !result.OK {                         // node and socks service must be one-to-one
-		err := errors.New("Socks has already running on current node! Use 'stopsocks' to stop the old one")
+		err := errors.New("SOCKS is already running on the current node. Use 'stopsocks' to stop the existing one.")
 		listener.Close()
 		return err
 	}
@@ -85,7 +85,7 @@ func (socks *Socks) LetSocks(mgr *manager.Manager, route string, uuid string) er
 	sMessage.SendMessage()
 
 	if ready := <-mgr.SocksManager.SocksReady; !ready {
-		err := errors.New("fail to start socks.If you just stop socks service,please wait for the cleanup done")
+		err := errors.New("failed to start socks. If you just stopped the socks service, please wait for cleanup to finish.")
 		StopSocks(mgr, uuid)
 		return err
 	}
@@ -225,7 +225,7 @@ func (socks *Socks) handleSocks(mgr *manager.Manager, conn net.Conn, route strin
 		length, err := conn.Read(buffer)
 		if err != nil {
 			sendSth = true
-			conn.Close() // close conn immediately,in case of sth is sended after TCPFin
+			conn.Close() // close conn immediately,in case of sth is sent after TCPFin
 			return
 		}
 

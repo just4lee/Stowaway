@@ -43,7 +43,7 @@ func ShowStatus(mgr *manager.Manager, uuid string) {
 	if forwardResult.OK {
 		for _, info := range forwardResult.ForwardInfo {
 			fmt.Printf(
-				"\r\n      [%d] Listening Addr: %s , Remote Addr: %s , Active Connnections: %d",
+				"\r\n      [%d] Listening Addr: %s , Remote Addr: %s , Active Connections: %d",
 				info.Seq,
 				info.Laddr,
 				info.Raddr,
@@ -57,7 +57,7 @@ func ShowStatus(mgr *manager.Manager, uuid string) {
 	if backwardResult.OK {
 		for _, info := range backwardResult.BackwardInfo {
 			fmt.Printf(
-				"\r\n      [%d] Remote Port: %s , Local Port: %s , Active Connnections: %d",
+				"\r\n      [%d] Remote Port: %s , Local Port: %s , Active Connections: %d",
 				info.Seq,
 				info.RPort,
 				info.LPort,

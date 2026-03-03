@@ -72,8 +72,8 @@ func normalPassiveReconn(options *initial.Options) net.Conn {
 	var sMessage, rMessage protocol.Message
 
 	hiMess := &protocol.HIMess{
-		GreetingLen: uint16(len("Keep slient")),
-		Greeting:    "Keep slient",
+		GreetingLen: uint16(len("Keep silent")),
+		Greeting:    "Keep silent",
 		UUIDLen:     uint16(len(global.G_Component.UUID)),
 		UUID:        global.G_Component.UUID,
 		IsAdmin:     0,
@@ -99,7 +99,7 @@ func normalPassiveReconn(options *initial.Options) net.Conn {
 			var tlsConfig *tls.Config
 			tlsConfig, err = transport.NewServerTLSConfig()
 			if err != nil {
-				log.Printf("[*] Error occured: %s", err.Error())
+				log.Printf("[*] Error occurred: %s", err.Error())
 				conn.Close()
 				continue
 			}
@@ -157,8 +157,8 @@ func soReusePassiveReconn(options *initial.Options) net.Conn {
 	var sMessage, rMessage protocol.Message
 
 	hiMess := &protocol.HIMess{
-		GreetingLen: uint16(len("Keep slient")),
-		Greeting:    "Keep slient",
+		GreetingLen: uint16(len("Keep silent")),
+		Greeting:    "Keep silent",
 		UUIDLen:     uint16(len(global.G_Component.UUID)),
 		UUID:        global.G_Component.UUID,
 		IsAdmin:     0,
@@ -184,7 +184,7 @@ func soReusePassiveReconn(options *initial.Options) net.Conn {
 			var tlsConfig *tls.Config
 			tlsConfig, err = transport.NewServerTLSConfig()
 			if err != nil {
-				log.Printf("[*] Error occured: %s", err.Error())
+				log.Printf("[*] Error occurred: %s", err.Error())
 				conn.Close()
 				continue
 			}
@@ -317,7 +317,7 @@ func normalReconnActiveReconn(options *initial.Options, proxy share.Proxy) net.C
 
 		if fHeader.MessageType == protocol.HI {
 			mmess := fMessage.(*protocol.HIMess)
-			if mmess.Greeting == "Keep slient" && mmess.IsAdmin == 1 {
+			if mmess.Greeting == "Keep silent" && mmess.IsAdmin == 1 {
 				return conn
 			}
 		}

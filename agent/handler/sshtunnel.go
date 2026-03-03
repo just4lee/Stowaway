@@ -126,7 +126,7 @@ func (sshTunnel *SSHTunnel) start(mgr *manager.Manager) {
 
 	if fHeader.MessageType == protocol.HI {
 		mmess := fMessage.(*protocol.HIMess)
-		if mmess.Greeting == "Keep slient" && mmess.IsAdmin == 0 {
+		if mmess.Greeting == "Keep silent" && mmess.IsAdmin == 0 {
 			childIP := conn.RemoteAddr().String()
 
 			cUUIDReqHeader := &protocol.Header{
@@ -183,7 +183,7 @@ func (sshTunnel *SSHTunnel) start(mgr *manager.Manager) {
 	}
 
 	conn.Close()
-	err = errors.New("node seems illegal")
+	err = errors.New("node looks invalid")
 }
 
 func DispatchSSHTunnelMess(mgr *manager.Manager) {

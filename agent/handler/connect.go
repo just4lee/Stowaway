@@ -117,7 +117,7 @@ func (connect *Connect) start(mgr *manager.Manager) {
 
 	if fHeader.MessageType == protocol.HI {
 		mmess := fMessage.(*protocol.HIMess)
-		if mmess.Greeting == "Keep slient" && mmess.IsAdmin == 0 {
+		if mmess.Greeting == "Keep silent" && mmess.IsAdmin == 0 {
 			if mmess.IsReconnect == 0 {
 				childIP := conn.RemoteAddr().String()
 
@@ -198,7 +198,7 @@ func (connect *Connect) start(mgr *manager.Manager) {
 	}
 
 	conn.Close()
-	err = errors.New("node seems illegal")
+	err = errors.New("node looks invalid")
 }
 
 func DispatchConnectMess(mgr *manager.Manager) {
